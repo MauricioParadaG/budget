@@ -1,6 +1,7 @@
 import React, {useState}from 'react'
+import ErrorComponent from './Error.component';
 
-const RequestBudgetComponent = () => {
+const RequestBudgetComponent = props => {
 
     const [amountBudget, setAmountBudgetState] = useState(0);
 
@@ -10,15 +11,34 @@ const RequestBudgetComponent = () => {
         setAmountBudgetState(
             // ...amountBudget,
             // adding the form info to the state
-            console.log(parseInt(event.target.value))
+            parseInt(event.target.value, 10)
         );
     } 
+
+    const onSubmit = event => {
+        event.preventDefault();
+
+        if (amountBudget < 0.0001 ||
+            isNaN(amountBudget) ){
+            setErrorState(true);
+            return;
+        }
+        setErrorState(false);
+
+        props.setBudgetState(amountBudget);
+        props.setRemainingBudgetState(amountBudget);
+    }
     
     return (
         <>
             <h2>What is the budget for the Project?</h2>
+            {/** if - error message with .css*/}
+            {error ?
+                <ErrorComponent message="A valid number must be higher than 0"/>
+            : null
+            }
             
-            <form>
+            <form onSubmit={onSubmit}>
                 <input 
                 type="number"
                 className="u-full-width"
