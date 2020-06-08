@@ -27,6 +27,7 @@ const RequestBudgetComponent = props => {
 
         props.setBudgetState(amountBudget);
         props.setRemainingBudgetState(amountBudget);
+        props.setLoadRequestBudgetState(false);
     }
     
     return (
@@ -34,7 +35,7 @@ const RequestBudgetComponent = props => {
             <h2>What is the budget for the Project?</h2>
             {/** if - error message with .css*/}
             {error ?
-                <ErrorComponent message="A valid number must be higher than 0"/>
+                <ErrorComponent message="A valid Budget must be higher than 0"/>
             : null
             }
             
