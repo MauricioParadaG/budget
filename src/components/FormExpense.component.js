@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
 import ErrorComponent from './Error.component';
+import shortid from 'shortid';
 
-const FormExpenseComponent = () => {
+const FormExpenseComponent = props => {
 
     const [expense, setExpenseState] = useState(
         {
-           //id:'',
+           id:'',
            title:'',
            amount:0,
            date:'',
@@ -19,8 +20,8 @@ const FormExpenseComponent = () => {
     const onChangeFormBudget = event => {
         setExpenseState({
             ...expense,
-            // adding an ID - uuid library
-            //id: uuid(),
+            // adding an ID - shorid library
+            id: shortid.generate(),
             // adding the form info to the state
             [event.target.name]: event.target.type === 'number' ? parseFloat(event.target.value)
             : event.target.value
@@ -33,7 +34,7 @@ const FormExpenseComponent = () => {
         // validation
         if (expense.title.trim() ==='' || 
         expense.amount < 0.001 ||
-        isNaN(expense.amount),
+        isNaN(expense.amount) ||
         expense.date.trim() ==='' ||
         expense.paidBy.trim() ==='' ){
             setErrorState(true);
@@ -41,6 +42,17 @@ const FormExpenseComponent = () => {
         } 
         setErrorState(false);
 
+        //console.log(expense);
+        // sharing with expensesState main Component
+        props.newExpenses(expense);
+
+        setExpenseState({ 
+            id:'',
+            title:'',
+            amount:0,
+            date:'',
+            paidBy:'',
+        });
 
     }
 

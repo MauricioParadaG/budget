@@ -96,7 +96,7 @@ h2 {
   align-items: center;
   margin:0;
 }
-.performed-expenses li p .gasto {
+.performed-expenses li p .expense {
   background-color: #004085;
   padding: 1rem;
   color:white;
