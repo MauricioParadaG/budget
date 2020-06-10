@@ -44,7 +44,8 @@ const FormExpenseComponent = props => {
 
         //console.log(expense);
         // sharing with expensesState main Component
-        props.newExpenses(expense);
+        props.setMainExpenseState(expense);
+        props.setAtleastoneExpenseState(true);
 
         setExpenseState({ 
             id:'',
